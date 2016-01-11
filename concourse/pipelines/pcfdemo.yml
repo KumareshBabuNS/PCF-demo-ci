@@ -1,0 +1,16 @@
+---
+resources:
+  - name: PCF-demo-ci
+    type: git
+    source:
+      uri: https://github.com/patrickcrocker/PCF-demo-ci.git
+      branch: master
+  - name: PCF-demo
+    type: git
+    source:
+      uri: https://github.com/patrickcrocker/PCF-demo.git
+      branch: master
+
+jobs:
+  - name: build-test-store
+    file: PCF-demo-ci/concourse/tasks/build-test-store.yml
