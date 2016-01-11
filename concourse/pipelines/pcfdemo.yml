@@ -1,16 +1,34 @@
 ---
 resources:
-  - name: PCF-demo-ci
+  - name: pcf-demo-ci
     type: git
     source:
       uri: https://github.com/patrickcrocker/PCF-demo-ci.git
       branch: master
-  - name: PCF-demo
+  - name: pcf-demo
     type: git
     source:
       uri: https://github.com/patrickcrocker/PCF-demo.git
       branch: master
 
 jobs:
-  - name: build-test-store
-    file: PCF-demo-ci/concourse/tasks/build-test-store.yml
+  - name: unit-test
+    public: true
+    plan:
+      - get: pcf-demo-ci
+      - get: pcf-demo
+        trigger: true
+      - task: unit
+        file: pcf-demo-ci/concourse/tasks/unit.yml
+  - name: build-artifact
+    public: true
+    plan:
+      - get: pcf-demo-ci
+        passed: [ unit-test ]
+        trigger: true
+      - get: pcf-demo
+        passed: [ unit-test ]
+        trigger: true
+      - task: build
+        file: pcf-demo-ci/concourse/tasks/build.yml
+        privileged: true

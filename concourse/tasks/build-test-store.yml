@@ -1,8 +1,0 @@
----
-platform: linux
-image: docker:///maven
-inputs:
-  - name: PCF-demo-ci
-  - name: PCF-demo
-run:
-  path: PCF-demo-ci/concourse/tasks/build-test-store.sh

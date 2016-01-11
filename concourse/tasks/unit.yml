@@ -1,0 +1,9 @@
+---
+platform: linux
+image: docker:///maven
+inputs:
+  - name: pcf-demo-ci
+  - name: pcf-demo
+run:
+  path: mvn
+  args: [ "--settings=pcf-demo-ci/settings.xml", "--file=pcf-demo/pom.xml", clean, test ]
