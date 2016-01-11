@@ -20,6 +20,7 @@ jobs:
         trigger: true
       - task: unit
         file: pcf-demo-ci/concourse/tasks/unit.yml
+        privileged: true
   - name: build-artifact
     public: true
     plan:
